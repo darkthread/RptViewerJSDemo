@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        /* https://blog.darkthread.net/blog/css-flexbox/ */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-size: 10pt;
+            font-family: 微軟正黑體, Arial, Helvetica, sans-serif;
+        }
+
+        .content {
+            /* flex 直式排列 */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 0;
+        }
+
+        #op {
+            height: 64px;
+            /* 或者寫 flex-basis: 28px 亦可，二者並存 flex-basis 優先 */
+            background-color: #eee;
+            padding: 6px;
+        }
+
+            #op button {
+                width: 120px;
+                margin: 6px 6px 6px 0;
+                font-size: 9pt;
+            }
+
+        #rptViewer {
+            flex-grow: 1; /* top-menu, status 未設 flex-grow，本列佔用所有剩餘空間 */
+            background-color: lightgray;
+        }
+        .loading {
+            position: absolute; top: 0; left: 0; z-index: 9999;
+            width: 100%; height: 100%;
+            text-align: center;
+        }
+        .loading .lds-spinner {
+            position: absolute;
+            margin-top: 100px;
+        }
+        .loading .mask {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-color: #444;
+            opacity: 0.5;
+        }
+    </style>
+    <link href="loading.css" rel="stylesheet" />
+</head>
+<body id="app">
+    <div class="content">
+        <div id="op">
+            日期區間：
+            <input type="date" v-model="StDate" />
+            ~
+            <input type="date" v-model="EdDate" />
+            排序：
+            <select v-model="SortBy">
+                <option v-for="opt in SortOptions" v-bind:value="opt">{{opt}}</option>
+            </select>
+            <br />
+            <button v-on:click="ShowQ()">
+                查詢 (QueryString)
+            </button>
+            <button v-on:click="ShowX()">
+                查詢 (XSS)
+            </button>
+            <button v-on:click="ShowP()">
+                查詢 (POST Form)
+            </button>
+            <button v-on:click="ShowR()">
+                查詢 (Param Trans)
+            </button>
+
+        </div>
+        <form action="../Reports/DemoReport.aspx" method="post" target="rptViewer"
+              enctype="application/x-www-form-urlencoded" id="rptForm">
+            <input type="hidden" name="st" v-model="StDate" />
+            <input type="hidden" name="ed" v-model="EdDate" />
+            <input type="hidden" name="s" v-model="SortBy" />
+        </form>
+        <iframe id="rptViewer" name="rptViewer" v-bind:src="IFrameSrc"></iframe>
+        <div class="loading" v-show="Loading">
+            <div class="mask"></div>
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/jquery/vue/vue.global.prod.min.js"></script>
+    <script>
+        var vm = Vue.createApp({
+            data: function () {
+                return {
+                    StDate: '2000-01-01',
+                    EdDate: new Date().toJSON().substr(0, 10),
+                    SortBy: 'PlayerId',
+                    SortOptions: [
+                        'PlayerId', 'Name', 'RegDate', 'Score'
+                    ],
+                    IFrameSrc: '../Reports/DemoReport.aspx',
+                    Loading: false
+                };
+            },
+            methods: {
+                ShowQ: function () {
+                    this.Loading = true;
+                    this.IFrameSrc = '../Reports/DemoReport.aspx?st=' + this.StDate + '&ed=' + this.EdDate + '&s=' + this.SortBy + '&_=' + new Date().getTime();
+                },
+                ShowX: function () {
+                    var doc = document.getElementById('rptViewer').contentWindow.document;
+                    doc.getElementById('st').value = this.StDate;
+                    doc.getElementById('ed').value = this.EdDate;
+                    doc.getElementById('s').value = this.SortBy;
+                    this.Loading = true;
+                    doc.getElementById('form1').submit();
+                },
+                ShowP: function () {
+                    this.Loading = true;
+                    document.getElementById('rptForm').submit();
+                },
+                ShowR: function () {
+                    var self = this;
+                    this.Loading = true;
+                    $.post("../MvcApi/SaveParam", {
+                        st: this.StDate, ed: this.EdDate, s: this.SortBy
+                    }).done(function (paramKey) {
+                        self.IFrameSrc = '../Reports/DemoReport.aspx?p=' + paramKey + '&_=' + new Date().getTime();
+                    });
+                }
+            }
+        }).mount('#app');
+        function hideLoadingAnimation() {
+            vm.Loading = false;
+        }
+    </script>
+</body>
+</html>
