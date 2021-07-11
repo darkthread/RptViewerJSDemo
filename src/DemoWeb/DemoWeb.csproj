@@ -114,7 +114,11 @@
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="lib\jquery\vue\vue.global.prod.min.js" />
     <Content Include="Reports\DemoReport.aspx" />
+    <Content Include="SPA\getGuid.aspx" />
+    <Content Include="SPA\loading-demo-jQuery.html" />
+    <Content Include="SPA\loading-demo.html" />
     <Content Include="SPA\loading.css" />
+    <Content Include="SPA\loading.gif" />
     <Content Include="SPA\report.html" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
