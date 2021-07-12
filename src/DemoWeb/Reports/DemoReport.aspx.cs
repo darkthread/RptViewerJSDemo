@@ -14,7 +14,7 @@ namespace DemoWeb.Reports
 {
     public partial class DemoReport : System.Web.UI.Page
     {
-        static DataTable SimulateTable = null;
+        public static DataTable SimulateTable = null;
         static DemoReport()
         {
             var t = new DataTable();

@@ -114,6 +114,7 @@
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="lib\jquery\vue\vue.global.prod.min.js" />
     <Content Include="Reports\DemoReport.aspx" />
+    <Content Include="Reports\RptViewerLoop.aspx" />
     <Content Include="SPA\getGuid.aspx" />
     <Content Include="SPA\loading-demo-jQuery.html" />
     <Content Include="SPA\loading-demo.html" />
@@ -155,6 +156,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptViewerLoop.aspx.cs">
+      <DependentUpon>RptViewerLoop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\RptViewerLoop.aspx.designer.cs">
+      <DependentUpon>RptViewerLoop.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +190,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\RptViewerDemo\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\PlayerReport.rdlc" />
