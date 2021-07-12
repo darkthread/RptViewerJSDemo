@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using DemoWeb.Models;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace DemoWeb.Reports
             ReportViewer1.LocalReport.ReportPath =
                 Server.MapPath("~/Reports/PlayerReport.rdlc");
             ReportDataSource ds = new ReportDataSource("DataSet1",
-                DemoReport.SimulateTable);
+                SimulateData.DataTable);
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(ds);
             ReportViewer1.LocalReport.SetParameters(new ReportParameter("StDate", "2000-01-01"));

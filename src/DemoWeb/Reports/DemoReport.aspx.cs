@@ -8,37 +8,14 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DemoWeb.Models;
 using Microsoft.Reporting.WebForms;
 
 namespace DemoWeb.Reports
 {
     public partial class DemoReport : System.Web.UI.Page
     {
-        public static DataTable SimulateTable = null;
-        static DemoReport()
-        {
-            var t = new DataTable();
-            t.Columns.Add(new DataColumn("PlayerId", typeof(string)));
-            t.Columns.Add(new DataColumn("Name", typeof(string)));
-            t.Columns.Add(new DataColumn("RegDate", typeof(DateTime)));
-            t.Columns.Add(new DataColumn("Score", typeof(int)));
-            var rnd = new Random(9527);
 
-            int i = 1;
-            typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public)
-                        .Select(c => (Color)c.GetValue(null, null))
-                        .ToList()
-                        .ForEach(c =>
-                        {
-                            t.Rows.Add(
-                                $"P{i++:000}",
-                                c, 
-                                new DateTime(1990, 1, 1).AddDays(rnd.Next(10000)), 
-                                rnd.Next(32767));
-                        });
-
-            SimulateTable = t;
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,7 +43,7 @@ namespace DemoWeb.Reports
                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PlayerReport.rdlc");
 
                 //此處理 DataView 模擬查詢資料庫
-                DataView view = SimulateTable.DefaultView;
+                DataView view = SimulateData.DataTable.DefaultView;
                 view.Sort = s;
                 view.RowFilter = $"RegDate >= '{DateTime.Parse(st):yyyy-MM-dd}' AND RegDate <= '{DateTime.Parse(ed):yyyy-MM-dd}'";
 

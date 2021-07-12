@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SimulateData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DemoReport.aspx.cs">
       <DependentUpon>DemoReport.aspx</DependentUpon>
@@ -189,7 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\MvcRptView\" />
     <Folder Include="Views\RptViewerDemo\" />
   </ItemGroup>
   <ItemGroup>
