@@ -55,8 +55,8 @@
     </style>
     <link href="loading.css" rel="stylesheet" />
 </head>
-<body id="app">
-    <div class="content">
+<body>
+    <div class="content" id="app">
         <div id="op">
             日期區間：
             <input type="date" v-model="StDate" />
@@ -71,7 +71,7 @@
                 查詢 (QueryString)
             </button>
             <button v-on:click="ShowX()">
-                查詢 (XSS)
+                查詢 (XFS)
             </button>
             <button v-on:click="ShowP()">
                 查詢 (POST Form)
