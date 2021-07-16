@@ -1,0 +1,18 @@
+﻿@using ReportViewerForMvc
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RptViewerInMvc</title>
+</head>
+<body>
+    <div>
+        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+    </div>
+</body>
+</html>

@@ -65,6 +65,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc14.140.1000.523\lib\net45\ReportViewerForMvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -115,6 +118,7 @@
     <Content Include="lib\jquery\vue\vue.global.prod.min.js" />
     <Content Include="Reports\DemoReport.aspx" />
     <Content Include="Reports\RptViewerLoop.aspx" />
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="SPA\getGuid.aspx" />
     <Content Include="SPA\loading-demo-jQuery.html" />
     <Content Include="SPA\loading-demo.html" />
@@ -181,6 +185,7 @@
     <Content Include="Reports\MyDataSet.xss">
       <DependentUpon>MyDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Home\RptViewerInMvc.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
